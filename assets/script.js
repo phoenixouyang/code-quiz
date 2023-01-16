@@ -79,10 +79,12 @@ function verify(event) {
 
     questionNumber++;
     if (questionNumber >= questionList.length) {
-        console.log("quiz end!")
+        return window.location.assign("/highscores.html")
     } else {
-        startQuiz(questionNumber)
+        startQuiz(questionNumber);
     }
 }
+
+
 
 startTimer();
