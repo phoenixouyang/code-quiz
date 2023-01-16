@@ -57,6 +57,12 @@ h1 {
     align-items: center;
 }
 
+.quiz-box {
+    width: 800px;
+    height: 500px;
+    display:block;
+}
+
 h2 {
     font-size: 30px;
 }
@@ -69,7 +75,7 @@ h2 {
     font-size: 20px;
 }
 
-.choice {
+.choices {
     padding: 13px 10px;
     margin: 5px 100px 5px 0px;
     width: 250px;
@@ -79,8 +85,15 @@ h2 {
     color: #EEEEEE;
 }
 
-.choice:hover {
+.choices:hover {
     background-color: #D4A7D4;
     font: #FFFFFF;
     cursor: pointer;
+}
+
+.timer {
+    float: right;
+    font-size: 18px;
+    color: #875D87;
+    font-weight: 500;
 }
