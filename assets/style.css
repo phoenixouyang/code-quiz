@@ -18,7 +18,7 @@ h1 {
     font-size: 18px;
 }
 
-.quiz-btn {
+.quiz-bt {
     padding: 5px 25px;
     background-color: #875D87;
     border-radius: 10px;
@@ -95,4 +95,33 @@ h2 {
     font-size: 18px;
     color: #875D87;
     font-weight: 500;
+}
+
+.score-box {
+    width: 80vw;
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    font-size: 20px;
+}
+
+.score-contents p {
+    margin: 10px 0px;
+}
+
+#submit-btn {
+    padding: 3px 15px;
+    background-color: #875D87;
+    border-radius: 8px;
+    border-width: 0;
+    color: #EEEEEE;
+    font-size: 18px;
+}
+
+#submit-btn:hover {
+    background-color: #D4A7D4;
+    cursor:pointer;
+    color: #FFFFFF;
 }
