@@ -23,12 +23,12 @@ let questionList = [
         question: "The condition in an if/else statement is enclosed with _______",
         choiceList: ["1. quotes", "2. curly brackets", "3. parenthesis", "4. square brackets"],
         answer: "3. parenthesis"
-    }, 
+    },
     {
         question: "Arrays in Javascript can be used to store _______",
         choiceList: ["1. numbers and strings", "2. other arrays", "3. booleans", "4. all of the above"],
         answer: "4. all of the above"
-    }, 
+    },
     {
         question: "String values must be enclosed within _____ when being assigned to variables",
         choiceList: ["1. quotes", "2. curly brackets", "3. commas", "4. parenthesis"],
@@ -43,38 +43,38 @@ let questionList = [
 
 
 function startTimer() {
-    timerInterval = setInterval(function() {
+    timerInterval = setInterval(function () {
         secondsLeft--;
         timeLeft.textContent = "Time: " + secondsLeft;
 
-        if(secondsLeft <= 0) {
+        if (secondsLeft <= 0) {
             clearInterval(timerInterval);
             timeLeft.textContent = "";
             quizFinish();
         }
-        }, 1000);
+    }, 1000);
     
     startQuiz(questionNumber);
 };
 
 function startQuiz(questionNumber) {
-    for (var i=0; i < questionList.length; i++) {        
+    for (var i = 0; i < questionList.length; i++) {
         currentQuestion = questionList[questionNumber].question;
         currentChoices = questionList[questionNumber].choiceList;
         question.textContent = currentQuestion;
         ul.innerHTML = "";
         choiceBox.innerHTML = ""
-        
-    currentChoices.forEach(function(item) {
-        var li = document.createElement("li");
-        li.textContent = item;
 
-        li.setAttribute("class", "choices");
-        choiceBox.appendChild(ul);
-        ul.appendChild(li);
-        li.addEventListener("click", (verify));
+        currentChoices.forEach(function (item) {
+            var li = document.createElement("li");
+            li.textContent = item;
+            
+            li.setAttribute("class", "choices");
+            choiceBox.appendChild(ul);
+            ul.appendChild(li);
+            li.addEventListener("click", (verify));
         })
-    }        
+    }
 };
 
 function verify(event) {
@@ -95,7 +95,7 @@ function verify(event) {
     }
 }
 
-function quizFinish () {
+function quizFinish() {
     // clear content from quiz
     choiceBox.innerHTML = "";
     question.innerHTML = "";
@@ -104,7 +104,7 @@ function quizFinish () {
     score = secondsLeft;
     clearInterval(timerInterval);
     timeLeft.textContent = "";
-
+    
     var h2 = document.createElement("h2");
     var scoreText = document.createElement("p");
     var initialsBox = document.createElement("div")
@@ -120,40 +120,33 @@ function quizFinish () {
 
     initialsText.textContent = "Enter Initials:";
     submitInitials.textContent = "Submit";
-    h2.textContent = "All done!"
-    scoreText.textContent = "Your final score is " + score + "."
+    h2.textContent = "All done!";
+    scoreText.textContent = "Your final score is " + score + ".";
 
     initialsBox.appendChild(initialsText);
     initialsBox.appendChild(userInitials);
     initialsBox.appendChild(submitInitials);
     quizBox.insertBefore(h2, quizBox.firstChild);
     quizBox.insertBefore(scoreText, quizBox.childNodes[1]);
-    quizBox.insertBefore(initialsBox,quizBox.childNodes[2]);
-    
-    submitInitials.addEventListener("click", function() {
+    quizBox.insertBefore(initialsBox, quizBox.childNodes[2]);
+
+    submitInitials.addEventListener("click", function () {
         var initials = userInitials.value;
+        var scoreList = JSON.parse(localStorage.getItem("scoreList")) || [];
 
         if (initials === "") {
             alert("Please enter your initials to submit your score.")
-        } else {
-            var userScore = {
-                initials: initials,
-                score: score,
-            }
+            return;
+        };
+        var userScore = {
+            initials: initials,
+            score: score,
+        };
+        scoreList.push(userScore);
+        localStorage.setItem("scoreList", JSON.stringify(scoreList));
+    });
+    
+};
 
-            console.log(userScore)
-            var scoreList = localStorage.getItem("scoreList");
-            if (scoreList === null) {
-                scoreList = [];
-            } else {
-                scoreList = Json.parse(scoreList)
-            }
-
-            scoreList.push(userScore);
-            
-        }
-
-})
-   
-}
 startTimer();
+
