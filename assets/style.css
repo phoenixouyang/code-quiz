@@ -142,3 +142,31 @@ p {
     font-size: 20px;
     padding: 5px 0px;
 }
+
+#go-back, 
+#clear {
+    padding: 3px 15px;
+    margin: 10px 0px 0px 5px;
+    background-color: #875D87;
+    border-radius: 8px;
+    border-width: 0;
+    color: #EEEEEE;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+#go-back:hover,
+#clear:hover {
+    background-color: #D4A7D4;
+    cursor:pointer;
+    color: #FFFFFF;
+}
+
+.highScoreList {
+    list-style: none;
+    background-color: #D2B7D6;
+    color: #FFFFFF;
+    font-size: 18px;
+    margin: 5px 0px;
+    padding: 5px;
+}

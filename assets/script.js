@@ -67,9 +67,8 @@ function startQuiz(questionNumber) {
 
         currentChoices.forEach(function (item) {
             var li = document.createElement("li");
-            li.textContent = item;
-            
             li.setAttribute("class", "choices");
+            li.textContent = item;
             choiceBox.appendChild(ul);
             ul.appendChild(li);
             li.addEventListener("click", (verify));
@@ -144,6 +143,7 @@ function quizFinish() {
         };
         scoreList.push(userScore);
         localStorage.setItem("scoreList", JSON.stringify(scoreList));
+        location.href = "highscores.html"
     });
     
 };
