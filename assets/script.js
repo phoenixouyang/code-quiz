@@ -1,10 +1,8 @@
 var question = document.getElementById("question");
-var choices = Array.from(document.getElementsByClassName("choices"));
 var timeLeft = document.querySelector(".timer");
 var validation = document.getElementById("validation");
-const choiceButtons = document.querySelectorAll(".choices");
-
-
+var choiceBox = document.getElementById("choice-box");
+var ul = document.createElement("ul");
 
 let secondsLeft = 75;
 let questionNumber = 0;
@@ -57,29 +55,37 @@ function startTimer() {
 function startQuiz(questionNumber) {
     for (var i=0; i < questionList.length; i++) {        
         currentQuestion = questionList[questionNumber].question;
-        currentChoice = questionList[questionNumber].choiceList;
+        currentChoices = questionList[questionNumber].choiceList;
         question.textContent = currentQuestion;
+        ul.innerHTML = "";
+        choiceBox.innerHTML = ""
         
-        choices.forEach(function(choice, index) {
-            choice.textContent = currentChoice[index];
-            choice.addEventListener("click", verify)
-        });
+    currentChoices.forEach(function(item) {
+        var li = document.createElement("li");
+        li.textContent = item;
+
+        li.setAttribute("class", "choices");
+        choiceBox.appendChild(ul);
+        ul.appendChild(li);
+        li.addEventListener("click", (verify));
+        })
     }        
-}
+};
 
 function verify(event) {
     var element = event.target;
+    
 
     if (element.textContent == questionList[questionNumber].answer) {
-        validation.textContent = "correct!"
+        validation.textContent = "correct!";
     } else {
-        secondsLeft = secondsLeft - penalty
-        validation.textContent = "wrong!"
+        secondsLeft = secondsLeft - penalty;
+        validation.textContent = "wrong!";
     }
 
     questionNumber++;
     if (questionNumber >= questionList.length) {
-        return window.location.assign("/highscores.html")
+        
     } else {
         startQuiz(questionNumber);
     }
