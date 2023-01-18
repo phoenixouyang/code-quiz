@@ -1,14 +1,18 @@
 var question = document.getElementById("question");
 var timeLeft = document.querySelector(".timer");
 var validation = document.getElementById("validation");
+var homeBox = document.getElementsByClassName("home-box")
 var choiceBox = document.getElementById("choice-box");
+var quizBox = document.getElementById("quiz-box")
 var ul = document.createElement("ul");
 
 let secondsLeft = 75;
+let score = 0
 let questionNumber = 0;
 let currentQuestion = "";
 let currentChoices = "";
 let penalty = 10;
+let timerInterval = 0
 let questionList = [
     {
         question: "Commonly used data types DO NOT include:",
@@ -39,13 +43,14 @@ let questionList = [
 
 
 function startTimer() {
-    var timerInterval = setInterval(function() {
+    timerInterval = setInterval(function() {
         secondsLeft--;
         timeLeft.textContent = "Time: " + secondsLeft;
 
         if(secondsLeft <= 0) {
             clearInterval(timerInterval);
             timeLeft.textContent = "";
+            quizFinish();
         }
         }, 1000);
     
@@ -74,7 +79,6 @@ function startQuiz(questionNumber) {
 
 function verify(event) {
     var element = event.target;
-    
 
     if (element.textContent == questionList[questionNumber].answer) {
         validation.textContent = "correct!";
@@ -85,12 +89,71 @@ function verify(event) {
 
     questionNumber++;
     if (questionNumber >= questionList.length) {
-        
+        quizFinish();
     } else {
         startQuiz(questionNumber);
     }
 }
 
+function quizFinish () {
+    // clear content from quiz
+    choiceBox.innerHTML = "";
+    question.innerHTML = "";
 
+    // stop timer and store value in score variable
+    score = secondsLeft;
+    clearInterval(timerInterval);
+    timeLeft.textContent = "";
 
+    var h2 = document.createElement("h2");
+    var scoreText = document.createElement("p");
+    var initialsBox = document.createElement("div")
+    var initialsText = document.createElement("p");
+    var userInitials = document.createElement("input");
+    var submitInitials = document.createElement("button");
+
+    initialsBox.setAttribute("class", "userName-box");
+    userInitials.setAttribute("type", "text");
+    userInitials.setAttribute("id", "userName");
+    submitInitials.setAttribute("id", "submit-btn");
+    submitInitials.setAttribute("type", "button");
+
+    initialsText.textContent = "Enter Initials:";
+    submitInitials.textContent = "Submit";
+    h2.textContent = "All done!"
+    scoreText.textContent = "Your final score is " + score + "."
+
+    initialsBox.appendChild(initialsText);
+    initialsBox.appendChild(userInitials);
+    initialsBox.appendChild(submitInitials);
+    quizBox.insertBefore(h2, quizBox.firstChild);
+    quizBox.insertBefore(scoreText, quizBox.childNodes[1]);
+    quizBox.insertBefore(initialsBox,quizBox.childNodes[2]);
+    
+    submitInitials.addEventListener("click", function() {
+        var initials = userInitials.value;
+
+        if (initials === "") {
+            alert("Please enter your initials to submit your score.")
+        } else {
+            var userScore = {
+                initials: initials,
+                score: score,
+            }
+
+            console.log(userScore)
+            var scoreList = localStorage.getItem("scoreList");
+            if (scoreList === null) {
+                scoreList = [];
+            } else {
+                scoreList = Json.parse(scoreList)
+            }
+
+            scoreList.push(userScore);
+            
+        }
+
+})
+   
+}
 startTimer();
