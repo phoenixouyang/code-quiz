@@ -16,7 +16,7 @@ Once you click 'Start Quiz', you will have 75 seconds to answer all the question
 
 When you've answered all the questions, you can enter your initials to save your highscore. It will then be displayed on the 'high scores' screen. You can take the quiz and track your score each time.
 
-![passwordpage](./assets/highscores.png)
+![passwordpage](./assets/highscore-screenshot.png)
 
 ## Credits
 
